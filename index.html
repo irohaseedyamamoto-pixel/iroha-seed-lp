@@ -12,456 +12,426 @@
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="https://iroha-seed-site.vercel.app/logo.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <style>
-    /* ── Reset ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Noto Sans JP', sans-serif;
-      color: #0f172a;
+      color: #1a2236;
       background: #fff;
-      line-height: 1.75;
+      line-height: 1.8;
       -webkit-font-smoothing: antialiased;
     }
     img { max-width: 100%; display: block; }
     a { text-decoration: none; color: inherit; }
     button { cursor: pointer; background: none; border: none; font-family: inherit; }
 
-    /* ── Variables ─────────────────────────────────────── */
     :root {
-      --navy-dk:  #061020;
-      --navy:     #0a1628;
-      --navy-md:  #0f2044;
-      --blue:     #1e3a6e;
-      --blue-br:  #2563eb;
-      --blue-lt:  #bfdbfe;
-      --pale:     #eff6ff;
-      --slate-lt: #f1f5f9;
-      --gold:     #c9863a;
-      --white:    #ffffff;
-      --off:      #f8fafc;
-      --text:     #0f172a;
-      --mid:      #334155;
-      --muted:    #64748b;
-      --border:   #e2e8f0;
-      --green:    #06c755;
-      --green-hv: #05a845;
-      --r:        16px;
-      --max:      1060px;
+      --navy-dk: #050d1c;
+      --navy:    #091525;
+      --navy-md: #0d1e3e;
+      --blue:    #1e3a6e;
+      --blue-br: #2563eb;
+      --blue-lt: #bfdbfe;
+      --pale:    #eff6ff;
+      --gold:    #c9863a;
+      --off:     #f7f8fa;
+      --text:    #1a2236;
+      --mid:     #374151;
+      --muted:   #6b7280;
+      --border:  #e5e7eb;
+      --green:   #06c755;
+      --green-hv:#05a845;
+      --max:     1040px;
     }
 
-    /* ── Utilities ─────────────────────────────────────── */
-    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-    .sec { padding: 88px 0; }
-    .sec-sm { padding: 72px 0; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+    .sec  { padding: 104px 0; }
 
-    .label {
-      display: inline-flex; align-items: center; gap: 10px;
-      color: var(--gold); font-size: 10px; font-weight: 700;
-      letter-spacing: .45em; text-transform: uppercase; margin-bottom: 18px;
-    }
-    .label::before {
-      content: ''; width: 28px; height: 1.5px; background: var(--gold);
-    }
-    .label-lt { color: rgba(255,255,255,.45); }
-    .label-lt::before { background: rgba(255,255,255,.25); }
+    /* Scroll fade-in */
+    .fade { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .fade.d1 { transition-delay: .08s; }
+    .fade.d2 { transition-delay: .17s; }
+    .fade.d3 { transition-delay: .26s; }
+    .fade.d4 { transition-delay: .34s; }
+    .fade.in  { opacity: 1; transform: none; }
 
-    .h1 {
-      font-family: 'Noto Serif JP', serif; font-weight: 900; line-height: 1.2;
-      font-size: clamp(34px, 6vw, 64px); color: #fff;
+    /* Section overline */
+    .overline {
+      font-size: 10px; font-weight: 700; letter-spacing: .42em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 18px; display: block;
     }
+    .overline-lt { color: rgba(255,255,255,.38); }
+
+    /* Section headings */
     .h2 {
-      font-family: 'Noto Serif JP', serif; font-weight: 900; line-height: 1.3;
+      font-family: 'Noto Serif JP', serif; font-weight: 900;
       font-size: clamp(26px, 4vw, 44px); color: var(--text);
+      line-height: 1.35;
     }
     .h2-lt { color: #fff; }
-
-    /* Fade-in on scroll */
-    .fade { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
-    .fade.d1 { transition-delay: .1s; }
-    .fade.d2 { transition-delay: .2s; }
-    .fade.d3 { transition-delay: .3s; }
-    .fade.d4 { transition-delay: .4s; }
-    .fade.d5 { transition-delay: .5s; }
-    .fade.in  { opacity: 1; transform: none; }
 
     /* LINE button */
     .btn-line {
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
       background: var(--green); color: #fff; font-weight: 900; font-size: 16px;
       padding: 16px 36px; border-radius: 50px;
-      transition: background .2s, transform .2s, box-shadow .2s;
+      transition: background .2s, transform .15s, box-shadow .2s;
     }
-    .btn-line:hover { background: var(--green-hv); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(6,199,85,.35); }
-    .btn-line-lg { font-size: 18px; padding: 20px 48px; }
-    .btn-line-sm { font-size: 13px; padding: 10px 22px; border-radius: 50px; }
+    .btn-line:hover { background: var(--green-hv); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(6,199,85,.3); }
+    .btn-line-lg  { font-size: 18px; padding: 20px 52px; }
+    .btn-line-sm  { font-size: 13px; padding: 10px 22px; }
 
-    .btn-ghost {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      border: 1.5px solid rgba(255,255,255,.25); color: rgba(255,255,255,.8);
-      font-weight: 700; font-size: 14px; padding: 14px 32px; border-radius: 50px;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-ghost:hover { border-color: rgba(255,255,255,.6); color: #fff; }
-
-    .btn-blue {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--blue-br); color: #fff; font-weight: 700; font-size: 14px;
-      padding: 13px 28px; border-radius: 50px; transition: background .2s;
-    }
-    .btn-blue:hover { background: #1d4ed8; }
-
-    /* ── Header ────────────────────────────────────────── */
+    /* ── Header ──────────────────────────────────── */
     #hdr {
       position: fixed; top: 0; inset-inline: 0; z-index: 999;
       height: 60px;
-      background: rgba(6,16,32,.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      transition: background .3s;
+      background: rgba(5,13,28,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
     }
     .hdr-i {
-      max-width: var(--max); margin: 0 auto; padding: 0 24px;
+      max-width: var(--max); margin: 0 auto; padding: 0 32px;
       height: 100%; display: flex; align-items: center; justify-content: space-between;
     }
     .hdr-logo { display: flex; align-items: center; gap: 10px; }
-    .hdr-logo img { width: 28px; height: 28px; object-fit: contain; border-radius: 6px; }
+    .hdr-logo img { width: 26px; height: 26px; object-fit: contain; border-radius: 5px; }
     .hdr-logo-name { font-weight: 900; font-size: 15px; color: #fff; }
-    .hdr-logo-sub { font-size: 9px; color: rgba(255,255,255,.4); letter-spacing: .05em; }
-    .hdr-nav { display: flex; align-items: center; gap: 24px; }
-    .hdr-nav a { color: rgba(255,255,255,.65); font-size: 13px; font-weight: 500; transition: color .2s; }
+    .hdr-logo-sub { font-size: 9px; color: rgba(255,255,255,.32); letter-spacing: .04em; }
+    .hdr-nav { display: flex; align-items: center; gap: 28px; }
+    .hdr-nav a { color: rgba(255,255,255,.5); font-size: 12px; font-weight: 500; transition: color .2s; }
     .hdr-nav a:hover { color: #fff; }
     @media (max-width: 680px) { .hdr-nav { display: none; } }
 
-    /* ── Hero ──────────────────────────────────────────── */
+    /* ── Hero ────────────────────────────────────── */
     #hero {
-      min-height: 100svh; padding: 96px 24px 80px;
+      min-height: 100svh; padding: 100px 32px 88px;
       background: var(--navy);
       display: flex; flex-direction: column; justify-content: center;
       position: relative; overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 60% 50% at 15% 55%, rgba(37,99,235,.22) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 60% at 85% 25%, rgba(15,32,68,.7) 0%, transparent 60%),
-        radial-gradient(circle, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: auto, auto, 30px 30px;
+    .hero-glow {
+      position: absolute; pointer-events: none; top: -120px; left: -80px;
+      width: 640px; height: 640px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.17) 0%, transparent 68%);
     }
     .hero-c { position: relative; max-width: var(--max); margin: 0 auto; width: 100%; }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(37,99,235,.18); border: 1px solid rgba(37,99,235,.35);
-      color: var(--blue-lt); font-size: 11px; font-weight: 700; letter-spacing: .3em;
-      padding: 6px 16px; border-radius: 50px; margin-bottom: 28px;
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 12px;
+      color: rgba(191,219,254,.65); font-size: 10px; font-weight: 700; letter-spacing: .38em;
+      text-transform: uppercase; margin-bottom: 30px;
     }
-    .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-br); }
+    .hero-tag::before { content: ''; width: 30px; height: 1px; background: rgba(191,219,254,.35); }
     .hero-h1 {
       font-family: 'Noto Serif JP', serif; font-weight: 900;
-      font-size: clamp(36px, 6.5vw, 72px); color: #fff;
-      line-height: 1.18; margin-bottom: 10px;
+      font-size: clamp(38px, 6.5vw, 72px); color: #fff; line-height: 1.2;
     }
     .hero-h1-acc { color: var(--blue-lt); }
     .hero-sub {
-      font-size: clamp(14px, 1.8vw, 17px); color: rgba(255,255,255,.62);
-      max-width: 540px; line-height: 2; margin-top: 18px; margin-bottom: 44px;
+      font-size: clamp(14px, 1.8vw, 16px); color: rgba(255,255,255,.52);
+      max-width: 500px; line-height: 2.1; margin-top: 24px; margin-bottom: 48px;
     }
-    .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 64px; }
+    .hero-cta { margin-bottom: 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+    .hero-cta-sub { font-size: 13px; color: rgba(255,255,255,.35); font-weight: 500; }
     .hero-stats {
-      display: flex; flex-wrap: wrap; gap: 40px;
-      padding-top: 44px; border-top: 1px solid rgba(255,255,255,.1);
+      display: flex; flex-wrap: wrap; gap: 0;
+      padding-top: 48px; border-top: 1px solid rgba(255,255,255,.08);
     }
+    .hero-stat {
+      padding-right: 48px; margin-right: 48px;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
     .hero-stat-num {
       font-family: 'Noto Serif JP', serif; font-weight: 900;
-      font-size: 38px; color: #fff; line-height: 1;
+      font-size: 36px; color: #fff; line-height: 1;
     }
-    .hero-stat-num sup { font-size: 17px; color: var(--gold); vertical-align: super; }
-    .hero-stat-lbl { font-size: 11px; color: rgba(255,255,255,.42); margin-top: 6px; }
+    .hero-stat-num sup { font-size: 14px; color: var(--gold); }
+    .hero-stat-lbl { font-size: 11px; color: rgba(255,255,255,.36); margin-top: 7px; line-height: 1.5; }
+    @media (max-width: 520px) {
+      .hero-stat { padding-right: 28px; margin-right: 28px; }
+    }
 
-    /* ── Ticker ────────────────────────────────────────── */
-    #ticker { background: var(--blue-br); padding: 13px 0; overflow: hidden; }
-    .ticker-track { display: flex; white-space: nowrap; }
-    .ticker-track { animation: ticker 22s linear infinite; }
-    .ticker-item {
-      display: inline-flex; align-items: center; gap: 18px;
-      padding: 0 20px; font-size: 11px; font-weight: 700;
-      letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.85);
+    /* ── Problem ─────────────────────────────────── */
+    #problem { background: #fff; }
+    .prob-intro { max-width: 640px; margin-bottom: 56px; }
+    .prob-intro p { font-size: 15px; color: var(--mid); line-height: 2; margin-top: 20px; }
+    .concern-list {
+      list-style: none;
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--border);
     }
-    .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,.4); flex-shrink: 0; }
-    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .concern-list li {
+      padding: 22px 40px 22px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14.5px; font-weight: 500; color: var(--text);
+      line-height: 1.75; position: relative;
+    }
+    .concern-list li:nth-child(odd)  { border-right: 1px solid var(--border); }
+    .concern-list li:nth-child(even) { padding-left: 32px; }
+    .concern-list li::before {
+      content: '';
+      position: absolute; left: 0; top: 35px;
+      width: 12px; height: 1.5px; background: var(--blue-br);
+    }
+    .concern-list li:nth-child(even)::before { left: 12px; }
+    @media (max-width: 600px) {
+      .concern-list { grid-template-columns: 1fr; }
+      .concern-list li:nth-child(odd)  { border-right: none; padding-right: 0; }
+      .concern-list li:nth-child(even) { padding-left: 20px; }
+      .concern-list li:nth-child(even)::before { left: 0; }
+    }
+    .prob-insight {
+      margin-top: 56px; padding: 30px 36px;
+      border-left: 3px solid var(--blue-br); background: var(--pale);
+      font-size: 15px; color: var(--blue); font-weight: 500; line-height: 1.9;
+    }
+    .prob-cta { margin-top: 48px; text-align: center; }
+    .prob-cta-note { margin-top: 12px; font-size: 11px; color: var(--muted); }
 
-    /* ── Problem ───────────────────────────────────────── */
-    #problem { background: var(--off); }
-    .prob-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; margin-top: 44px; }
-    .prob-card {
-      background: #fff; border: 1px solid var(--border); border-radius: var(--r);
-      padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .prob-card:hover { border-color: var(--blue-lt); box-shadow: 0 4px 16px rgba(37,99,235,.08); }
-    .prob-num {
-      flex-shrink: 0; font-family: 'Noto Serif JP', serif; font-weight: 900;
-      font-size: 22px; color: rgba(37,99,235,.2); line-height: 1; margin-top: 2px;
-    }
-    .prob-txt { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.7; }
-    .prob-note {
-      margin-top: 44px; border-left: 4px solid var(--blue-br);
-      background: var(--pale); border-radius: 0 var(--r) var(--r) 0;
-      padding: 20px 26px; font-size: 15px; font-weight: 500;
-      color: var(--blue); line-height: 1.85;
-    }
-    .prob-cta { margin-top: 44px; text-align: center; }
-
-    /* ── Why ───────────────────────────────────────────── */
+    /* ── Why ─────────────────────────────────────── */
     #why { background: var(--navy); }
-    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 48px; }
-    .why-card {
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--r); padding: 32px 26px;
+    .why-intro { max-width: 600px; margin-bottom: 60px; }
+    .why-row {
+      display: grid; grid-template-columns: 56px 1fr; gap: 36px;
+      padding: 44px 0; border-top: 1px solid rgba(255,255,255,.08);
+      align-items: start;
     }
-    .why-n {
-      font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 52px;
-      color: rgba(37,99,235,.3); line-height: 1; margin-bottom: 14px;
+    .why-row:last-child { border-bottom: 1px solid rgba(255,255,255,.08); }
+    .why-idx {
+      font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 12px;
+      color: rgba(255,255,255,.2); letter-spacing: .1em; padding-top: 4px;
     }
-    .why-ttl { font-weight: 900; font-size: 17px; color: #fff; margin-bottom: 8px; }
-    .why-dsc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.85; }
-    .why-bottom {
-      margin-top: 44px; background: rgba(37,99,235,.14);
-      border: 1px solid rgba(37,99,235,.28); border-radius: var(--r);
-      padding: 26px 30px;
-      font-size: 15px; color: var(--blue-lt); font-weight: 500; line-height: 1.85;
+    .why-title { font-weight: 900; font-size: 17px; color: #fff; margin-bottom: 12px; line-height: 1.5; }
+    .why-desc  { font-size: 14px; color: rgba(255,255,255,.5); line-height: 2.05; }
+    .why-closing {
+      margin-top: 56px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,.08);
+      font-size: 15px; font-weight: 500; color: rgba(255,255,255,.65); line-height: 2;
     }
+    .why-closing strong { color: #fff; font-weight: 900; }
 
-    /* ── Diff ──────────────────────────────────────────── */
+    /* ── Differentiation ─────────────────────────── */
     #diff { background: var(--off); }
-    .diff-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin: 48px 0 40px; }
-    .diff-col { padding: 36px 30px; }
+    .diff-intro { max-width: 620px; margin-bottom: 56px; }
+    .diff-intro p { margin-top: 20px; font-size: 15px; color: var(--mid); line-height: 2; }
+    .diff-cols {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      margin-bottom: 52px;
+    }
+    .diff-col { padding: 40px 36px; }
     .diff-them { background: #fff; border-right: 1px solid var(--border); }
     .diff-us   { background: var(--navy-md); }
-    .diff-tag  { font-size: 10px; font-weight: 700; letter-spacing: .35em; text-transform: uppercase; margin-bottom: 16px; }
-    .diff-them .diff-tag { color: var(--muted); }
-    .diff-us   .diff-tag { color: var(--gold); }
-    .diff-ttl  { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 21px; margin-bottom: 20px; }
-    .diff-them .diff-ttl { color: var(--mid); }
-    .diff-us   .diff-ttl { color: #fff; }
-    .diff-ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .diff-ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; line-height: 1.6; }
-    .diff-them .diff-ul li { color: var(--muted); }
-    .diff-us   .diff-ul li { color: rgba(255,255,255,.72); }
-    .diff-ul li::before { content: '—'; flex-shrink: 0; }
-    .diff-them .diff-ul li::before { color: #94a3b8; }
-    .diff-us   .diff-ul li::before { color: var(--gold); }
-    .diff-kicker {
-      background: var(--navy); border-radius: var(--r); padding: 36px 40px;
-      font-family: 'Noto Serif JP', serif; font-weight: 900;
-      font-size: clamp(18px, 2.8vw, 28px); color: #fff; line-height: 1.5; text-align: center;
+    .diff-col-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: .4em;
+      text-transform: uppercase; margin-bottom: 20px; display: block;
     }
-    .diff-kicker span { color: var(--blue-lt); }
-    .diff-cta { margin-top: 40px; text-align: center; }
+    .diff-them .diff-col-tag { color: var(--muted); }
+    .diff-us   .diff-col-tag { color: var(--gold); }
+    .diff-col-ttl {
+      font-family: 'Noto Serif JP', serif; font-weight: 900;
+      font-size: 19px; margin-bottom: 28px; line-height: 1.5;
+    }
+    .diff-them .diff-col-ttl { color: var(--mid); }
+    .diff-us   .diff-col-ttl { color: #fff; }
+    .diff-items { display: flex; flex-direction: column; gap: 14px; }
+    .diff-item { display: flex; gap: 12px; font-size: 13.5px; line-height: 1.65; align-items: baseline; }
+    .diff-them .diff-item { color: var(--muted); }
+    .diff-us   .diff-item { color: rgba(255,255,255,.72); }
+    .diff-item-mark { flex-shrink: 0; }
+    .diff-them .diff-item-mark { color: #94a3b8; }
+    .diff-us   .diff-item-mark { color: var(--gold); }
+    .diff-statement {
+      font-family: 'Noto Serif JP', serif; font-weight: 900;
+      font-size: clamp(19px, 2.8vw, 28px); color: var(--text);
+      text-align: center; line-height: 1.7;
+    }
+    .diff-statement em { color: var(--blue-br); font-style: normal; }
+    .diff-cta { margin-top: 48px; text-align: center; }
     @media (max-width: 540px) {
-      .diff-wrap { grid-template-columns: 1fr; }
+      .diff-cols { grid-template-columns: 1fr; }
       .diff-them { border-right: none; border-bottom: 1px solid var(--border); }
     }
 
-    /* ── Service ───────────────────────────────────────── */
+    /* ── Service ─────────────────────────────────── */
     #service { background: var(--navy); }
-    .svc-grid { display: flex; flex-direction: column; gap: 18px; margin-top: 48px; }
-    .svc-item { display: grid; grid-template-columns: 1fr 2fr; border: 1px solid rgba(255,255,255,.07); border-radius: var(--r); overflow: hidden; }
-    .svc-l { background: rgba(255,255,255,.04); padding: 30px 26px; border-right: 1px solid rgba(255,255,255,.07); }
-    .svc-r { background: rgba(255,255,255,.02); padding: 30px 28px; }
-    .svc-num { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 40px; color: rgba(37,99,235,.3); line-height: 1; margin-bottom: 10px; }
-    .svc-ttl { font-weight: 900; font-size: 18px; color: #fff; margin-bottom: 6px; }
-    .svc-lead { font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.7; }
-    .svc-desc { font-size: 14px; color: rgba(255,255,255,.62); line-height: 1.95; }
-    .svc-outcome {
-      margin-top: 28px; border: 1px solid rgba(201,134,58,.22);
-      background: rgba(201,134,58,.06); border-radius: var(--r); padding: 30px 32px;
+    .svc-intro { max-width: 580px; margin-bottom: 64px; }
+    .svc-intro p { margin-top: 18px; font-size: 15px; color: rgba(255,255,255,.5); line-height: 2; }
+    .svc-item {
+      display: grid; grid-template-columns: 220px 1fr; gap: 48px;
+      padding: 48px 0; border-top: 1px solid rgba(255,255,255,.07);
+      align-items: start;
     }
-    .svc-outcome-q {
-      font-family: 'Noto Serif JP', serif; font-size: clamp(17px, 2.2vw, 22px);
-      font-weight: 900; color: #fff; line-height: 1.6; margin-bottom: 10px;
+    .svc-item:last-child { border-bottom: 1px solid rgba(255,255,255,.07); }
+    .svc-idx   { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.2); letter-spacing: .1em; margin-bottom: 10px; }
+    .svc-title { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 20px; color: #fff; line-height: 1.4; margin-bottom: 8px; }
+    .svc-lead  { font-size: 12.5px; color: rgba(255,255,255,.38); line-height: 1.75; }
+    .svc-desc  { font-size: 14px; color: rgba(255,255,255,.58); line-height: 2.1; }
+    .svc-tagline {
+      margin-top: 64px; padding: 40px 44px;
+      border: 1px solid rgba(201,134,58,.2); border-radius: 12px;
+      background: rgba(201,134,58,.05);
     }
-    .svc-outcome-a { font-size: 14px; color: var(--gold); font-weight: 700; }
-    @media (max-width: 600px) {
-      .svc-item { grid-template-columns: 1fr; }
-      .svc-l { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .svc-tagline-q {
+      font-family: 'Noto Serif JP', serif; font-weight: 900;
+      font-size: clamp(16px, 2.2vw, 22px); color: #fff; line-height: 1.7;
     }
-
-    /* ── Process ───────────────────────────────────────── */
-    #process { background: var(--pale); }
-    .proc-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
-      margin-top: 48px; position: relative;
-    }
-    .proc-step { padding: 0 20px 28px; text-align: center; position: relative; }
-    .proc-step:not(:last-child):not(:nth-child(3))::after {
-      content: '→'; position: absolute; right: -8px; top: 12px;
-      color: rgba(37,99,235,.4); font-size: 20px; z-index: 1;
-    }
-    .proc-circle {
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 2px solid rgba(37,99,235,.4); background: #fff;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 16px; position: relative;
-    }
-    .proc-n { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 11px; color: var(--blue-br); }
-    .proc-ttl { font-weight: 900; font-size: 15px; color: var(--text); margin-bottom: 8px; }
-    .proc-dsc { font-size: 12px; color: var(--muted); line-height: 1.75; }
-    @media (max-width: 540px) {
-      .proc-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
-      .proc-step::after { display: none; }
+    .svc-tagline-a { margin-top: 12px; font-size: 14px; color: var(--gold); font-weight: 700; }
+    @media (max-width: 640px) {
+      .svc-item { grid-template-columns: 1fr; gap: 14px; }
     }
 
-    /* ── About ─────────────────────────────────────────── */
+    /* ── Process ─────────────────────────────────── */
+    #process { background: #fff; }
+    .proc-intro { max-width: 540px; margin-bottom: 64px; }
+    .proc-intro p { margin-top: 18px; font-size: 15px; color: var(--mid); line-height: 2; }
+    .proc-item {
+      display: grid; grid-template-columns: 52px 1fr; gap: 28px;
+      padding: 36px 0; border-top: 1px solid var(--border);
+      align-items: start;
+    }
+    .proc-item:last-child { border-bottom: 1px solid var(--border); }
+    .proc-num  { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 11px; color: var(--blue-br); letter-spacing: .08em; padding-top: 4px; }
+    .proc-title { font-weight: 900; font-size: 17px; color: var(--text); margin-bottom: 8px; }
+    .proc-desc  { font-size: 14px; color: var(--mid); line-height: 1.95; }
+
+    /* ── About ───────────────────────────────────── */
     #about { background: var(--off); }
-    .about-grid { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: start; }
-    .about-photo-wrap { position: relative; }
+    .about-layout { display: grid; grid-template-columns: 260px 1fr; gap: 72px; align-items: start; }
+    .about-photo-wrap { position: relative; flex-shrink: 0; }
     .about-photo {
-      width: 100%; border-radius: 16px 16px 48px 16px;
+      width: 100%; border-radius: 12px 12px 40px 12px;
       aspect-ratio: 3/4; object-fit: cover; object-position: top center;
     }
     .about-badge {
-      position: absolute; bottom: -14px; right: -14px;
+      position: absolute; bottom: -12px; right: -12px;
       background: var(--navy); color: #fff; font-size: 11px; font-weight: 700;
-      padding: 10px 14px; border-radius: 10px; line-height: 1.5;
+      padding: 10px 14px; border-radius: 8px; line-height: 1.5;
     }
     .about-badge span { display: block; color: var(--gold); font-size: 9px; margin-top: 2px; }
-    .about-name { font-family: 'Noto Serif JP', serif; font-size: 36px; font-weight: 900; color: var(--text); }
-    .about-name-en { font-size: 12px; color: var(--muted); letter-spacing: .15em; margin-top: 2px; }
-    .about-role { font-size: 12px; font-weight: 700; color: var(--blue-br); letter-spacing: .05em; margin-top: 10px; margin-bottom: 24px; }
-    .about-q {
-      font-family: 'Noto Serif JP', serif; font-size: clamp(17px, 2vw, 21px);
-      font-weight: 900; color: var(--text); line-height: 1.5;
-      border-left: 3px solid var(--blue-br); padding-left: 18px; margin-bottom: 24px;
+    .about-right { padding-top: 4px; }
+    .about-name    { font-family: 'Noto Serif JP', serif; font-size: 34px; font-weight: 900; color: var(--text); line-height: 1.2; }
+    .about-name-en { font-size: 11px; color: var(--muted); letter-spacing: .18em; margin-top: 4px; margin-bottom: 8px; }
+    .about-role    { font-size: 12px; font-weight: 700; color: var(--blue-br); letter-spacing: .04em; margin-bottom: 28px; }
+    .about-quote {
+      font-family: 'Noto Serif JP', serif; font-size: clamp(16px, 1.9vw, 20px);
+      font-weight: 900; color: var(--text); line-height: 1.6;
+      border-left: 3px solid var(--blue-br); padding-left: 18px; margin-bottom: 28px;
     }
-    .about-story { font-size: 14px; color: var(--mid); line-height: 2.1; margin-bottom: 32px; }
-    .about-career { border-left: 2px solid var(--blue-lt); padding-left: 22px; display: flex; flex-direction: column; gap: 16px; }
-    .about-cy { position: relative; }
-    .about-cy::before {
-      content: ''; position: absolute; left: -29px; top: 6px;
-      width: 9px; height: 9px; border-radius: 50%;
+    .about-story p { font-size: 14px; color: var(--mid); line-height: 2.15; margin-bottom: 16px; }
+    .about-story p:last-child { margin-bottom: 0; }
+    .about-stats {
+      display: flex; gap: 36px; flex-wrap: wrap;
+      padding: 24px 0; margin: 32px 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .about-stat-num { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 28px; color: var(--text); line-height: 1; }
+    .about-stat-num sup { font-size: 13px; color: var(--gold); }
+    .about-stat-lbl { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+    .about-timeline { display: flex; flex-direction: column; gap: 0; border-left: 2px solid var(--blue-lt); padding-left: 24px; }
+    .about-t-item { position: relative; padding-bottom: 22px; }
+    .about-t-item:last-child { padding-bottom: 0; }
+    .about-t-item::before {
+      content: ''; position: absolute; left: -30px; top: 5px;
+      width: 8px; height: 8px; border-radius: 50%;
       background: var(--blue-br); border: 2px solid var(--off);
     }
-    .about-cy-yr { font-size: 11px; font-weight: 700; color: var(--blue-br); letter-spacing: .1em; margin-bottom: 2px; }
-    .about-cy-tx { font-size: 13.5px; color: var(--mid); line-height: 1.6; }
-    @media (max-width: 680px) {
-      .about-grid { grid-template-columns: 1fr; gap: 36px; }
-      .about-photo-wrap { max-width: 220px; }
+    .about-t-yr { font-size: 11px; font-weight: 700; color: var(--blue-br); letter-spacing: .08em; margin-bottom: 2px; }
+    .about-t-tx { font-size: 13px; color: var(--mid); line-height: 1.65; }
+    @media (max-width: 700px) {
+      .about-layout { grid-template-columns: 1fr; gap: 40px; }
+      .about-photo-wrap { max-width: 200px; }
     }
 
-    /* ── Video ─────────────────────────────────────────── */
+    /* ── Video ───────────────────────────────────── */
     #video { background: var(--navy); }
-    .video-head { text-align: center; margin-bottom: 40px; }
-    .video-head p { font-size: 14px; color: rgba(255,255,255,.5); margin-top: 10px; line-height: 1.7; }
-    .video-frame-wrap {
+    .video-intro { max-width: 680px; margin: 0 auto 52px; text-align: center; }
+    .video-intro .h2 { margin-bottom: 12px; }
+    .video-intro p { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.9; margin-top: 14px; }
+    .video-learn {
+      max-width: 680px; margin: 0 auto 52px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .video-learn-item {
+      display: grid; grid-template-columns: 44px 1fr; gap: 20px;
+      padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,.08);
+      align-items: start;
+    }
+    .video-learn-num {
+      font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 11px;
+      color: rgba(255,255,255,.2); letter-spacing: .1em; padding-top: 3px;
+    }
+    .video-learn-txt { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.65; }
+    .video-event-note { text-align: center; font-size: 11px; color: rgba(255,255,255,.22); margin-bottom: 20px; }
+    .video-frame {
       position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-      border-radius: var(--r); max-width: 800px; margin: 0 auto;
-      box-shadow: 0 24px 64px rgba(0,0,0,.5);
+      border-radius: 12px; max-width: 780px; margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
     }
-    .video-frame-wrap iframe {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      border: none; border-radius: var(--r);
-    }
-    .video-caption {
-      max-width: 800px; margin: 20px auto 0;
-      font-size: 12px; color: rgba(255,255,255,.3); text-align: right;
-    }
+    .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-    /* ── Track ─────────────────────────────────────────── */
-    #track { background: var(--blue); }
-    .track-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 44px; }
-    .track-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--r); padding: 36px 24px; text-align: center;
-    }
-    .track-num { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: 54px; color: #fff; line-height: 1; }
-    .track-num sup { font-size: 20px; color: var(--gold); }
-    .track-lbl { font-size: 13px; color: rgba(255,255,255,.5); margin-top: 8px; line-height: 1.5; }
-    @media (max-width: 540px) { .track-grid { grid-template-columns: 1fr; max-width: 280px; } }
-
-    /* ── FAQ ───────────────────────────────────────────── */
+    /* ── FAQ ─────────────────────────────────────── */
     #faq { background: #fff; }
-    .faq-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-top: 44px; }
+    .faq-intro { max-width: 540px; margin-bottom: 56px; }
+    .faq-accordion { border-top: 1px solid var(--border); }
     .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-q-btn {
-      width: 100%; text-align: left; display: flex; align-items: center; gap: 14px;
-      padding: 20px 24px; font-size: 14.5px; font-weight: 700; color: var(--text);
-      transition: background .15s;
+    .faq-btn {
+      width: 100%; text-align: left; display: flex; align-items: flex-start; gap: 18px;
+      padding: 24px 0; font-size: 15px; font-weight: 700; color: var(--text);
+      transition: color .15s;
     }
-    .faq-q-btn:hover { background: var(--pale); }
-    .faq-q-lbl {
-      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
-      background: var(--blue-br); color: #fff; font-size: 11px; font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
+    .faq-btn:hover { color: var(--blue-br); }
+    .faq-q-mark { flex-shrink: 0; font-family: 'Noto Serif JP', serif; font-size: 15px; font-weight: 900; color: var(--blue-br); padding-top: 1px; width: 20px; }
+    .faq-q-text { flex: 1; line-height: 1.65; }
+    .faq-icon {
+      flex-shrink: 0; font-size: 20px; font-weight: 300;
+      color: var(--muted); transition: transform .25s; line-height: 1; padding-top: 2px;
     }
-    .faq-q-txt { flex: 1; line-height: 1.5; }
-    .faq-toggle {
-      flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
-      background: var(--pale); display: flex; align-items: center; justify-content: center;
-      color: var(--blue-br); font-size: 20px; font-weight: 300;
-      transition: transform .25s;
-    }
-    .faq-item.open .faq-toggle { transform: rotate(45deg); }
-    .faq-a {
-      display: none; padding: 0 24px 20px 60px;
-      font-size: 13.5px; color: var(--mid); line-height: 2;
-    }
-    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); color: var(--blue-br); }
+    .faq-answer { display: none; padding: 0 0 24px 38px; font-size: 14px; color: var(--mid); line-height: 2.05; }
+    .faq-item.open .faq-answer { display: block; }
 
-    /* ── CTA final ─────────────────────────────────────── */
-    #cta-final {
-      background: linear-gradient(145deg, var(--navy-dk) 0%, var(--navy-md) 60%, var(--blue) 100%);
-      padding: 96px 24px; text-align: center; position: relative; overflow: hidden;
-    }
-    #cta-final::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
-    .cta-final-inner { position: relative; max-width: 600px; margin: 0 auto; }
-    .cta-h { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: clamp(28px, 5vw, 50px); color: #fff; line-height: 1.3; margin-bottom: 14px; }
-    .cta-sub { font-size: 15px; color: rgba(255,255,255,.58); line-height: 1.9; margin-bottom: 44px; }
-    .cta-btns { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 24px; }
-    .cta-note { font-size: 12px; color: rgba(255,255,255,.3); line-height: 1.7; }
+    /* ── CTA Final ───────────────────────────────── */
+    #cta-final { background: var(--navy-dk); padding: 112px 32px; text-align: center; }
+    .cta-inner { max-width: 540px; margin: 0 auto; }
+    .cta-overline { font-size: 10px; font-weight: 700; letter-spacing: .42em; color: var(--gold); margin-bottom: 24px; display: block; text-transform: uppercase; }
+    .cta-h { font-family: 'Noto Serif JP', serif; font-weight: 900; font-size: clamp(28px, 5vw, 48px); color: #fff; line-height: 1.3; margin-bottom: 16px; }
+    .cta-sub { font-size: 15px; color: rgba(255,255,255,.48); line-height: 2; margin-bottom: 48px; }
+    .cta-note { margin-top: 20px; font-size: 11px; color: rgba(255,255,255,.22); letter-spacing: .03em; }
 
-    /* Form iframe */
-    .form-wrap {
-      max-width: 720px; margin: 44px auto 0;
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--r); overflow: hidden;
-    }
-    .form-lbl {
-      padding: 14px 20px; font-size: 12px; font-weight: 700;
-      color: rgba(255,255,255,.5); letter-spacing: .15em; border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    /* ── Footer ────────────────────────────────────────── */
-    footer { background: var(--navy-dk); padding: 36px 24px; }
-    .foot-inner { max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+    /* ── Footer ──────────────────────────────────── */
+    footer { background: var(--navy-dk); border-top: 1px solid rgba(255,255,255,.05); padding: 36px 32px; }
+    .foot-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
     .foot-logo { display: flex; align-items: center; gap: 8px; }
-    .foot-logo img { width: 22px; height: 22px; object-fit: contain; border-radius: 5px; }
-    .foot-logo span { font-weight: 900; font-size: 13px; color: #fff; }
-    .foot-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-    .foot-links a { font-size: 12px; color: rgba(255,255,255,.35); transition: color .2s; }
-    .foot-links a:hover { color: rgba(255,255,255,.7); }
-    .foot-copy { font-size: 11px; color: rgba(255,255,255,.2); }
+    .foot-logo img { width: 20px; height: 20px; object-fit: contain; border-radius: 4px; }
+    .foot-logo span { font-weight: 900; font-size: 13px; color: rgba(255,255,255,.55); }
+    .foot-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .foot-links a { font-size: 12px; color: rgba(255,255,255,.25); transition: color .2s; }
+    .foot-links a:hover { color: rgba(255,255,255,.6); }
+    .foot-copy { font-size: 11px; color: rgba(255,255,255,.16); }
+    @media (max-width: 600px) {
+      .foot-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
 
-    /* Responsive tweaks */
     @media (max-width: 460px) {
-      .btn-line-lg { font-size: 16px; padding: 17px 32px; width: 100%; }
-      .btn-ghost { width: 100%; }
+      .btn-line-lg { font-size: 16px; padding: 17px 32px; width: 100%; max-width: 340px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════ HEADER ══════════ -->
+<!-- LINE icon sprite (reused throughout) -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="ico-line" viewBox="0 0 24 24">
+    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+  </symbol>
+</svg>
+
+<!-- ══ HEADER ══ -->
 <header id="hdr">
   <div class="hdr-i">
     <a href="#" class="hdr-logo">
@@ -478,298 +448,263 @@
       <a href="#faq">FAQ</a>
     </nav>
     <a href="https://lin.ee/6CUpdTX" target="_blank" rel="noopener" class="btn-line btn-line-sm">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      <svg width="14" height="14" fill="currentColor"><use href="#ico-line"/></svg>
       無料診断を申し込む
     </a>
   </div>
 </header>
 
-<!-- ══════════ HERO ══════════ -->
+<!-- ══ HERO ══ -->
 <section id="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
   <div class="hero-c">
-    <div class="hero-eyebrow fade"><span></span>MARKETING CONSULTING</div>
+    <div class="hero-tag fade">MARKETING CONSULTING</div>
     <h1 class="hero-h1 fade d1">
       売れていない原因は、<br>
       <span class="hero-h1-acc">たいてい"流れ"にあります。</span>
     </h1>
     <p class="hero-sub fade d2">
-      SNS・広告・LP制作など、どれだけ個別の施策を積み上げても売上につながらないのは、<br>
-      事業全体の"流れ"が整っていないからです。<br>
-      商品・導線・ファネルを一気通貫で見直し、選ばれる仕組みをつくる個別伴走サポートです。
+      SNS・広告・LP制作など、どれだけ個別の施策を積み上げても売上につながらないのは、事業全体の"流れ"が整っていないからです。商品・導線・ファネルを一気通貫で見直し、選ばれる仕組みをつくる個別伴走サポートです。
     </p>
-    <div class="hero-btns fade d3">
+    <div class="hero-cta fade d3">
       <a href="https://lin.ee/6CUpdTX" target="_blank" rel="noopener" class="btn-line btn-line-lg">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        <svg width="20" height="20" fill="currentColor"><use href="#ico-line"/></svg>
         LINEで無料診断を申し込む
       </a>
-      <a href="#cta-final" class="btn-ghost">お問い合わせフォーム →</a>
+      <span class="hero-cta-sub">診断無料・強引な営業は一切なし</span>
     </div>
     <div class="hero-stats fade d4">
-      <div>
+      <div class="hero-stat">
         <div class="hero-stat-num">14<sup>年</sup></div>
         <div class="hero-stat-lbl">経営者としての実務経験</div>
       </div>
-      <div>
+      <div class="hero-stat">
         <div class="hero-stat-num">複数<sup>業種</sup></div>
         <div class="hero-stat-lbl">建築・飲食・IT・製薬</div>
       </div>
-      <div>
-        <div class="hero-stat-num">CMO<sup></sup></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">CMO</div>
         <div class="hero-stat-lbl">製薬会社・最高マーケティング責任者として参画</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ TICKER ══════════ -->
-<div id="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span class="ticker-item">事業診断<span class="ticker-dot"></span></span>
-    <span class="ticker-item">USP設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">商品設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">導線設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">ファネル構築<span class="ticker-dot"></span></span>
-    <span class="ticker-item">個別伴走サポート<span class="ticker-dot"></span></span>
-    <span class="ticker-item">売れる仕組み<span class="ticker-dot"></span></span>
-    <span class="ticker-item">集客設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">顧客獲得<span class="ticker-dot"></span></span>
-    <span class="ticker-item">事業再設計<span class="ticker-dot"></span></span>
-    <!-- duplicate for seamless loop -->
-    <span class="ticker-item">事業診断<span class="ticker-dot"></span></span>
-    <span class="ticker-item">USP設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">商品設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">導線設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">ファネル構築<span class="ticker-dot"></span></span>
-    <span class="ticker-item">個別伴走サポート<span class="ticker-dot"></span></span>
-    <span class="ticker-item">売れる仕組み<span class="ticker-dot"></span></span>
-    <span class="ticker-item">集客設計<span class="ticker-dot"></span></span>
-    <span class="ticker-item">顧客獲得<span class="ticker-dot"></span></span>
-    <span class="ticker-item">事業再設計<span class="ticker-dot"></span></span>
-  </div>
-</div>
-
-<!-- ══════════ PROBLEM ══════════ -->
+<!-- ══ PROBLEM ══ -->
 <section id="problem" class="sec">
   <div class="wrap">
-    <div class="label fade">こんな悩みはありませんか？</div>
-    <h2 class="h2 fade d1">
-      「頑張っているのに、売れない」<br>その原因、本当に分かりますか？
-    </h2>
-    <div class="prob-grid">
-      <div class="prob-card fade d1">
-        <div class="prob-num">01</div>
-        <div class="prob-txt">発信・集客・自己投資を頑張っているのに、なぜ売れないかがわからない</div>
-      </div>
-      <div class="prob-card fade d2">
-        <div class="prob-num">02</div>
-        <div class="prob-txt">商品設計・導線設計・ファネルのどこに問題があるか判断できない</div>
-      </div>
-      <div class="prob-card fade d3">
-        <div class="prob-num">03</div>
-        <div class="prob-txt">自信を持って自分の商品を提案・価格提示できない</div>
-      </div>
-      <div class="prob-card fade d1">
-        <div class="prob-num">04</div>
-        <div class="prob-txt">施策が点になっていて、つながった流れになっていない</div>
-      </div>
-      <div class="prob-card fade d2">
-        <div class="prob-num">05</div>
-        <div class="prob-txt">SNSや広告を試したが手応えがなく、何が正解かわからない</div>
-      </div>
-      <div class="prob-card fade d3">
-        <div class="prob-num">06</div>
-        <div class="prob-txt">アドバイスをもらうだけで終わる支援に、物足りなさを感じている</div>
-      </div>
+    <div class="prob-intro fade">
+      <span class="overline">こんな悩みはありませんか？</span>
+      <h2 class="h2">「頑張っているのに、売れない」<br>その原因、本当に分かりますか？</h2>
+      <p>発信や集客に力を入れているのに、成果が出ない。そんなとき、問題は「施策の質」ではなく、別のところにあることがほとんどです。</p>
     </div>
-    <div class="prob-note fade">
+    <ul class="concern-list">
+      <li class="fade d1">発信・集客・自己投資を頑張っているのに、なぜ売れないかがわからない</li>
+      <li class="fade d2">商品設計・導線設計・ファネルのどこに問題があるか判断できない</li>
+      <li class="fade d1">自信を持って自分の商品を提案・価格提示できない</li>
+      <li class="fade d2">施策が点になっていて、つながった流れになっていない</li>
+      <li class="fade d1">SNSや広告を試したが手応えがなく、何が正解かわからない</li>
+      <li class="fade d2">アドバイスをもらうだけで終わる支援に、物足りなさを感じている</li>
+    </ul>
+    <div class="prob-insight fade">
       これらの悩みのほとんどは、個別の施策の問題ではなく、<strong>事業全体の"流れ"が整っていないこと</strong>が根本原因です。どの施策をどれだけ頑張っても、流れが機能していなければ成果には繋がりません。
     </div>
     <div class="prob-cta fade">
       <a href="https://lin.ee/6CUpdTX" target="_blank" rel="noopener" class="btn-line">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        <svg width="16" height="16" fill="currentColor"><use href="#ico-line"/></svg>
         まず現状を話してみる（無料）
       </a>
-      <p style="margin-top:12px;font-size:11px;color:var(--muted);">診断無料・強引な営業は一切ありません</p>
+      <p class="prob-cta-note">診断無料・強引な営業は一切ありません</p>
     </div>
   </div>
 </section>
 
-<!-- ══════════ WHY ══════════ -->
+<!-- ══ WHY ══ -->
 <section id="why" class="sec">
   <div class="wrap">
-    <div class="label label-lt fade">なぜ売れないのか / ROOT CAUSE</div>
-    <h2 class="h2 h2-lt fade d1">売れない本当の理由は、<br>3つに集約されます。</h2>
-    <div class="why-grid">
-      <div class="why-card fade d1">
-        <div class="why-n">01</div>
-        <div class="why-ttl">「誰に・何を・なぜ」が曖昧なまま発信している</div>
-        <div class="why-dsc">USPや商品の強みが言語化できていないため、自信を持って提案できず、価格も下げがちになります。どれだけ発信量を増やしても、刺さらない言葉では届きません。</div>
-      </div>
-      <div class="why-card fade d2">
-        <div class="why-n">02</div>
-        <div class="why-ttl">集客から成約まで"導線"が繋がっていない</div>
-        <div class="why-dsc">SNS・広告・LP・セールスがバラバラに動いていると、どこかで必ず離脱が起きます。各施策がつながった流れとして機能して初めて、成約率は安定します。</div>
-      </div>
-      <div class="why-card fade d3">
-        <div class="why-n">03</div>
-        <div class="why-ttl">ファネル全体の設計ができていない</div>
-        <div class="why-dsc">認知→興味→検討→成約→継続という一連の流れを設計せずに、点の施策を繰り返しても成果は安定しません。全体を俯瞰した設計が必要です。</div>
+    <div class="why-intro fade">
+      <span class="overline overline-lt">なぜ売れないのか</span>
+      <h2 class="h2 h2-lt">売れない本当の理由は、3つに集約されます。</h2>
+    </div>
+    <div class="why-row fade d1">
+      <div class="why-idx">01</div>
+      <div>
+        <div class="why-title">「誰に・何を・なぜ」が曖昧なまま発信している</div>
+        <p class="why-desc">USPや商品の強みが言語化できていないため、自信を持って提案できず、価格も下げがちになります。どれだけ発信量を増やしても、刺さらない言葉では届きません。</p>
       </div>
     </div>
-    <div class="why-bottom fade">
-      <strong style="color:#fff;">問題は、あなたの努力が足りないのではありません。</strong><br>
-      どこに問題があるかを正確に見極め、その箇所を整えること——それが先に必要なことです。
+    <div class="why-row fade d2">
+      <div class="why-idx">02</div>
+      <div>
+        <div class="why-title">集客から成約まで"導線"が繋がっていない</div>
+        <p class="why-desc">SNS・広告・LP・セールスがバラバラに動いていると、どこかで必ず離脱が起きます。各施策がつながった流れとして機能して初めて、成約率は安定します。</p>
+      </div>
+    </div>
+    <div class="why-row fade d3">
+      <div class="why-idx">03</div>
+      <div>
+        <div class="why-title">ファネル全体の設計ができていない</div>
+        <p class="why-desc">認知→興味→検討→成約→継続という一連の流れを設計せずに、点の施策を繰り返しても成果は安定しません。全体を俯瞰した設計が必要です。</p>
+      </div>
+    </div>
+    <div class="why-closing fade">
+      <strong>問題は、あなたの努力が足りないのではありません。</strong>どこに問題があるかを正確に見極め、その箇所を整えること——それが先に必要なことです。
     </div>
   </div>
 </section>
 
-<!-- ══════════ DIFFERENTIATION ══════════ -->
+<!-- ══ DIFFERENTIATION ══ -->
 <section id="diff" class="sec">
   <div class="wrap">
-    <div class="label fade">何が違うのか / DIFFERENCE</div>
-    <h2 class="h2 fade d1">「パーツを見る」か、<br>「事業全体の流れを見る」か。</h2>
-    <div class="diff-wrap fade d2">
+    <div class="diff-intro fade">
+      <h2 class="h2">「パーツを見る」か、「事業全体の流れを見る」か。</h2>
+      <p>一般的な支援は、SNS・広告・LPといった個別パーツの改善にとどまります。iroha Seedが見るのは、それらが一本の流れとして機能しているかどうかです。</p>
+    </div>
+    <div class="diff-cols fade d1">
       <div class="diff-col diff-them">
-        <div class="diff-tag">一般的な支援者</div>
-        <div class="diff-ttl">パーツ単体を<br>提供する</div>
-        <ul class="diff-ul">
-          <li>SNS運用の代行・改善</li>
-          <li>広告運用の最適化</li>
-          <li>LPやサイトの制作</li>
-          <li>個別コンサルやアドバイス</li>
-          <li>施策の提案のみで終わる</li>
-        </ul>
+        <span class="diff-col-tag">一般的な支援者</span>
+        <div class="diff-col-ttl">パーツ単体を提供する</div>
+        <div class="diff-items">
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>SNS運用の代行・改善</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>広告運用の最適化</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>LPやサイトの制作</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>個別コンサルやアドバイス</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>施策の提案のみで終わる</span></div>
+        </div>
       </div>
       <div class="diff-col diff-us">
-        <div class="diff-tag">iroha Seed</div>
-        <div class="diff-ttl">事業全体の流れを<br>整える</div>
-        <ul class="diff-ul">
-          <li>「なぜ売れないか」の根本を診断する</li>
-          <li>商品・USPを言語化・再設計する</li>
-          <li>集客から成約まで導線を一気通貫で設計する</li>
-          <li>実行フェーズまで現場で伴走する</li>
-          <li>自走できる状態になるまで寄り添う</li>
-        </ul>
+        <span class="diff-col-tag">iroha Seed</span>
+        <div class="diff-col-ttl">事業全体の流れを整える</div>
+        <div class="diff-items">
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>「なぜ売れないか」の根本を診断する</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>商品・USPを言語化・再設計する</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>集客から成約まで導線を一気通貫で設計する</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>実行フェーズまで現場で伴走する</span></div>
+          <div class="diff-item"><span class="diff-item-mark">—</span><span>自走できる状態になるまで寄り添う</span></div>
+        </div>
       </div>
     </div>
-    <div class="diff-kicker fade">
+    <div class="diff-statement fade d2">
       競合はパーツを見る。<br>
-      <span>私は、事業全体の流れを見る。</span>
+      <em>私は、事業全体の流れを見る。</em>
     </div>
     <div class="diff-cta fade">
       <a href="https://lin.ee/6CUpdTX" target="_blank" rel="noopener" class="btn-line">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        <svg width="16" height="16" fill="currentColor"><use href="#ico-line"/></svg>
         事業全体を一緒に整理する（無料）
       </a>
     </div>
   </div>
 </section>
 
-<!-- ══════════ SERVICE ══════════ -->
+<!-- ══ SERVICE ══ -->
 <section id="service" class="sec">
   <div class="wrap">
-    <div class="label label-lt fade">サービス内容 / SERVICE</div>
-    <h2 class="h2 h2-lt fade d1">4つの柱で、<br>売れる仕組みを整えます。</h2>
-    <div class="svc-grid">
-      <div class="svc-item fade d1">
-        <div class="svc-l">
-          <div class="svc-num">01</div>
-          <div class="svc-ttl">事業診断</div>
-          <div class="svc-lead">「売れない」の本当の原因を、ここから探ります。</div>
-        </div>
-        <div class="svc-r">
-          <div class="svc-desc">商品・導線・ファネル全体を深くヒアリングし、売れない根本原因を特定します。表面的な分析ではなく、現場の実態から本質的な問題を見つけ出します。</div>
-        </div>
-      </div>
-      <div class="svc-item fade d2">
-        <div class="svc-l">
-          <div class="svc-num">02</div>
-          <div class="svc-ttl">USP・商品設計</div>
-          <div class="svc-lead">「あなたから買う理由」を言語化します。</div>
-        </div>
-        <div class="svc-r">
-          <div class="svc-desc">あなたにしか語れない強みを言語化し、誰に・何を・どう届けるかを明確にします。自信を持って提案できる商品の土台を一緒に組み立てます。</div>
-        </div>
-      </div>
-      <div class="svc-item fade d3">
-        <div class="svc-l">
-          <div class="svc-num">03</div>
-          <div class="svc-ttl">導線・ファネル設計</div>
-          <div class="svc-lead">点の施策を、つながった流れに変えます。</div>
-        </div>
-        <div class="svc-r">
-          <div class="svc-desc">集客から成約・継続までの流れを一気通貫で設計・構築します。分断されていた施策をつなぎ、成果が積み上がる構造をつくります。</div>
-        </div>
-      </div>
-      <div class="svc-item fade d4">
-        <div class="svc-l">
-          <div class="svc-num">04</div>
-          <div class="svc-ttl">実行支援・個別伴走</div>
-          <div class="svc-lead">アドバイスで終わらず、現場で一緒に動きます。</div>
-        </div>
-        <div class="svc-r">
-          <div class="svc-desc">アドバイスで終わらず、実行と改善まで共に歩みます。経営者の孤独な判断に、実務経験を持つパートナーとして寄り添い続けます。</div>
-        </div>
-      </div>
+    <div class="svc-intro fade">
+      <span class="overline overline-lt">サービス内容</span>
+      <h2 class="h2 h2-lt">売れる仕組みを整える、4つの柱。</h2>
+      <p>診断から実行支援まで、必要なプロセスをすべてカバーします。</p>
     </div>
-    <div class="svc-outcome fade">
-      <div class="svc-outcome-q">自分の商品に自信を持ち、誰に・何を・どう届ければ選ばれるのかが明確になる。</div>
-      <div class="svc-outcome-a">集客から販売までの流れが整った、"選ばれる事業"へ。</div>
+    <div class="svc-item fade d1">
+      <div>
+        <div class="svc-idx">01</div>
+        <div class="svc-title">事業診断</div>
+        <div class="svc-lead">「売れない」の本当の原因を、ここから探ります。</div>
+      </div>
+      <p class="svc-desc">商品・導線・ファネル全体を深くヒアリングし、売れない根本原因を特定します。表面的な分析ではなく、現場の実態から本質的な問題を見つけ出します。</p>
+    </div>
+    <div class="svc-item fade d2">
+      <div>
+        <div class="svc-idx">02</div>
+        <div class="svc-title">USP・商品設計</div>
+        <div class="svc-lead">「あなたから買う理由」を言語化します。</div>
+      </div>
+      <p class="svc-desc">あなたにしか語れない強みを言語化し、誰に・何を・どう届けるかを明確にします。自信を持って提案できる商品の土台を一緒に組み立てます。</p>
+    </div>
+    <div class="svc-item fade d3">
+      <div>
+        <div class="svc-idx">03</div>
+        <div class="svc-title">導線・ファネル設計</div>
+        <div class="svc-lead">点の施策を、つながった流れに変えます。</div>
+      </div>
+      <p class="svc-desc">集客から成約・継続までの流れを一気通貫で設計・構築します。分断されていた施策をつなぎ、成果が積み上がる構造をつくります。</p>
+    </div>
+    <div class="svc-item fade d4">
+      <div>
+        <div class="svc-idx">04</div>
+        <div class="svc-title">実行支援・個別伴走</div>
+        <div class="svc-lead">アドバイスで終わらず、現場で一緒に動きます。</div>
+      </div>
+      <p class="svc-desc">アドバイスで終わらず、実行と改善まで共に歩みます。経営者の孤独な判断に、実務経験を持つパートナーとして寄り添い続けます。</p>
+    </div>
+    <div class="svc-tagline fade">
+      <div class="svc-tagline-q">自分の商品に自信を持ち、誰に・何を・どう届ければ選ばれるのかが明確になる。</div>
+      <div class="svc-tagline-a">集客から販売までの流れが整った、"選ばれる事業"へ。</div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ PROCESS ══════════ -->
+<!-- ══ PROCESS ══ -->
 <section id="process" class="sec">
   <div class="wrap">
-    <div class="label fade">サポートの流れ / PROCESS</div>
-    <h2 class="h2 fade d1">診断から自走まで、<br>一気通貫で伴走します。</h2>
-    <div class="proc-grid">
-      <div class="proc-step fade d1">
-        <div class="proc-circle"><div class="proc-n">01</div></div>
-        <div class="proc-ttl">診断</div>
-        <div class="proc-dsc">現状の商品・導線・ファネルを深くヒアリングし、売れない原因を特定します。</div>
+    <div class="proc-intro fade">
+      <h2 class="h2">診断から自走まで、一気通貫で伴走します。</h2>
+      <p>段階的なプロセスで進めるため、どこで何が起きているかが常に明確です。</p>
+    </div>
+    <div class="proc-item fade d1">
+      <div class="proc-num">01</div>
+      <div>
+        <div class="proc-title">診断</div>
+        <p class="proc-desc">現状の商品・導線・ファネルを深くヒアリングし、売れない原因を特定します。</p>
       </div>
-      <div class="proc-step fade d2">
-        <div class="proc-circle"><div class="proc-n">02</div></div>
-        <div class="proc-ttl">再設計</div>
-        <div class="proc-dsc">USP・商品設計・ターゲットを整理し、選ばれるための土台を組み直します。</div>
+    </div>
+    <div class="proc-item fade d2">
+      <div class="proc-num">02</div>
+      <div>
+        <div class="proc-title">再設計</div>
+        <p class="proc-desc">USP・商品設計・ターゲットを整理し、選ばれるための土台を組み直します。</p>
       </div>
-      <div class="proc-step fade d3">
-        <div class="proc-circle"><div class="proc-n">03</div></div>
-        <div class="proc-ttl">構築</div>
-        <div class="proc-dsc">集客から成約までの導線・ファネルを一気通貫で設計・構築します。</div>
+    </div>
+    <div class="proc-item fade d3">
+      <div class="proc-num">03</div>
+      <div>
+        <div class="proc-title">構築</div>
+        <p class="proc-desc">集客から成約までの導線・ファネルを一気通貫で設計・構築します。</p>
       </div>
-      <div class="proc-step fade d1">
-        <div class="proc-circle"><div class="proc-n">04</div></div>
-        <div class="proc-ttl">実行</div>
-        <div class="proc-dsc">施策の実行フェーズを共に歩みます。アドバイスで終わらず現場で伴走します。</div>
+    </div>
+    <div class="proc-item fade d1">
+      <div class="proc-num">04</div>
+      <div>
+        <div class="proc-title">実行</div>
+        <p class="proc-desc">施策の実行フェーズを共に歩みます。アドバイスで終わらず現場で伴走します。</p>
       </div>
-      <div class="proc-step fade d2">
-        <div class="proc-circle"><div class="proc-n">05</div></div>
-        <div class="proc-ttl">改善</div>
-        <div class="proc-dsc">結果を検証し、仮説と改善を繰り返しながら精度を高めていきます。</div>
+    </div>
+    <div class="proc-item fade d2">
+      <div class="proc-num">05</div>
+      <div>
+        <div class="proc-title">改善</div>
+        <p class="proc-desc">結果を検証し、仮説と改善を繰り返しながら精度を高めていきます。</p>
       </div>
-      <div class="proc-step fade d3">
-        <div class="proc-circle"><div class="proc-n">06</div></div>
-        <div class="proc-ttl">自走</div>
-        <div class="proc-dsc">あなた自身が「売れる仕組み」を回せる状態へ。完全な自走を目指します。</div>
+    </div>
+    <div class="proc-item fade d3">
+      <div class="proc-num">06</div>
+      <div>
+        <div class="proc-title">自走</div>
+        <p class="proc-desc">あなた自身が「売れる仕組み」を回せる状態へ。完全な自走を目指します。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ ABOUT ══════════ -->
+<!-- ══ ABOUT ══ -->
 <section id="about" class="sec">
   <div class="wrap">
-    <div class="label fade">代表者紹介 / ABOUT</div>
-    <div class="about-grid">
+    <div class="about-layout">
       <div class="about-photo-wrap fade">
         <img class="about-photo"
           src="https://iroha-seed-site.vercel.app/profile.jpg"
           alt="山本 剛史"
-          onerror="this.style.background='#dbeafe';this.style.display='flex';this.setAttribute('data-err','1')">
+          onerror="this.style.background='#dbeafe'">
         <div class="about-badge">
           代表取締役社長
           <span>株式会社廣創</span>
@@ -779,29 +714,43 @@
         <div class="about-name">山本 剛史</div>
         <div class="about-name-en">TSUYOSHI YAMAMOTO</div>
         <div class="about-role">iroha Seed / 株式会社廣創 代表</div>
-        <blockquote class="about-q">
+        <blockquote class="about-quote">
           "勇気を持って独立した方々の成功を、少しでも手助けしたい"
         </blockquote>
-        <p class="about-story">
-          30歳で法人を設立し、建築・飲食・IT・製薬など複数の業界で当事者として経営に携わってきました。コロナ禍などの影響もあり、周囲で独立した仲間が志半ばで諦めたり、倒産に追い込まれる姿を目の当たりにしました。<br><br>
-          私の強みは、SNS運用や広告といった施策の前に「なぜ売れていないか」を見抜くことです。その人の話を深く聞きながら、商品設計・導線設計・ファネルまで含めて、売れる流れを一から整えます。
-        </p>
-        <div class="about-career">
-          <div class="about-cy">
-            <div class="about-cy-yr">20代</div>
-            <div class="about-cy-tx">マッサージ師・職人として現場経験を積む</div>
+        <div class="about-story">
+          <p>30歳で法人を設立し、建築・飲食・IT・製薬など複数の業界で当事者として経営に携わってきました。コロナ禍などの影響もあり、周囲で独立した仲間が志半ばで諦めたり、倒産に追い込まれる姿を目の当たりにしました。</p>
+          <p>私の強みは、SNS運用や広告といった施策の前に「なぜ売れていないか」を見抜くことです。その人の話を深く聞きながら、商品設計・導線設計・ファネルまで含めて、売れる流れを一から整えます。</p>
+        </div>
+        <div class="about-stats">
+          <div>
+            <div class="about-stat-num">14<sup>年</sup></div>
+            <div class="about-stat-lbl">経営者としての実務経験</div>
           </div>
-          <div class="about-cy">
-            <div class="about-cy-yr">30歳</div>
-            <div class="about-cy-tx">法人設立。建築リフォーム・太陽光発電事業を展開</div>
+          <div>
+            <div class="about-stat-num">複数<sup>業種</sup></div>
+            <div class="about-stat-lbl">建築・飲食・IT・製薬など</div>
           </div>
-          <div class="about-cy">
-            <div class="about-cy-yr">30代</div>
-            <div class="about-cy-tx">フランチャイズ飲食事業エリアマネージャー兼任</div>
+          <div>
+            <div class="about-stat-num">CMO</div>
+            <div class="about-stat-lbl">製薬会社マーケ戦略・実行</div>
           </div>
-          <div class="about-cy">
-            <div class="about-cy-yr">〜現在</div>
-            <div class="about-cy-tx">IT企業サービス構築・営業、製薬会社CMO参画</div>
+        </div>
+        <div class="about-timeline">
+          <div class="about-t-item">
+            <div class="about-t-yr">20代</div>
+            <div class="about-t-tx">マッサージ師・職人として現場経験を積む</div>
+          </div>
+          <div class="about-t-item">
+            <div class="about-t-yr">30歳</div>
+            <div class="about-t-tx">法人設立。建築リフォーム・太陽光発電事業を展開</div>
+          </div>
+          <div class="about-t-item">
+            <div class="about-t-yr">30代</div>
+            <div class="about-t-tx">フランチャイズ飲食事業エリアマネージャー兼任</div>
+          </div>
+          <div class="about-t-item">
+            <div class="about-t-yr">〜現在</div>
+            <div class="about-t-tx">IT企業サービス構築・営業、製薬会社CMO参画</div>
           </div>
         </div>
       </div>
@@ -809,29 +758,29 @@
   </div>
 </section>
 
-<!-- ══════════ VIDEO ══════════ -->
+<!-- ══ VIDEO ══ -->
 <section id="video" class="sec">
   <div class="wrap">
-    <div class="video-head fade">
-      <div class="label label-lt" style="justify-content:center;">動画でわかること / WHAT YOU'LL LEARN</div>
-      <h2 class="h2 h2-lt" style="margin-bottom:36px;">この動画を見ると、<br>3つのことがわかります。</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:800px;margin:0 auto 40px;text-align:left;">
-        <div style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:22px 20px;">
-          <div style="font-family:'Noto Serif JP',serif;font-size:32px;font-weight:900;color:rgba(37,99,235,.4);line-height:1;margin-bottom:10px;">01</div>
-          <div style="font-size:15px;font-weight:700;color:#fff;line-height:1.6;">集客する時に必須で<br>考えないといけないこと</div>
-        </div>
-        <div style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:22px 20px;">
-          <div style="font-family:'Noto Serif JP',serif;font-size:32px;font-weight:900;color:rgba(37,99,235,.4);line-height:1;margin-bottom:10px;">02</div>
-          <div style="font-size:15px;font-weight:700;color:#fff;line-height:1.6;">倒産した社長が共通して<br>持っていた【勘違い】</div>
-        </div>
-        <div style="background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:22px 20px;">
-          <div style="font-family:'Noto Serif JP',serif;font-size:32px;font-weight:900;color:rgba(37,99,235,.4);line-height:1;margin-bottom:10px;">03</div>
-          <div style="font-size:15px;font-weight:700;color:#fff;line-height:1.6;">自社の強みを<br>簡単に出す方法</div>
-        </div>
+    <div class="video-intro fade">
+      <h2 class="h2 h2-lt">この動画を見ると、3つのことがわかります。</h2>
+      <p>実際の登壇講演から。マーケティングの核心をお伝えしています。</p>
+    </div>
+    <div class="video-learn fade d1">
+      <div class="video-learn-item">
+        <div class="video-learn-num">01</div>
+        <div class="video-learn-txt">集客する時に必須で考えないといけないこと</div>
+      </div>
+      <div class="video-learn-item">
+        <div class="video-learn-num">02</div>
+        <div class="video-learn-txt">倒産した社長が共通して持っていた【勘違い】</div>
+      </div>
+      <div class="video-learn-item">
+        <div class="video-learn-num">03</div>
+        <div class="video-learn-txt">自社の強みを簡単に出す方法とは？</div>
       </div>
     </div>
-    <p style="text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-bottom:16px;">プレジデントステーション福岡 2025.05.25 登壇映像</p>
-    <div class="video-frame-wrap fade d1">
+    <p class="video-event-note fade d1">プレジデントステーション福岡 2025.05.25 登壇映像</p>
+    <div class="video-frame fade d2">
       <iframe
         src="https://www.youtube.com/embed/DDv-fCFCdmw?start=290"
         title="プレジデントステーション福岡 2025年5月 山本剛史"
@@ -839,126 +788,99 @@
         allowfullscreen>
       </iframe>
     </div>
-    <div class="video-caption fade d2">プレジデントステーション福岡 2025.05.25</div>
   </div>
 </section>
 
-<!-- ══════════ TRACK RECORD ══════════ -->
-<section id="track" class="sec">
-  <div class="wrap">
-    <div class="label fade" style="color:var(--gold);"><span style="width:28px;height:1.5px;background:var(--gold);display:block;"></span>実績 / TRACK RECORD</div>
-    <h2 class="h2 h2-lt fade d1">確かな経験に裏打ちされた、<br>実戦力</h2>
-    <div class="track-grid">
-      <div class="track-card fade d1">
-        <div class="track-num">14<sup>年</sup></div>
-        <div class="track-lbl">経営者としての実務経験<br>建築・飲食・IT・製薬など複数業種</div>
-      </div>
-      <div class="track-card fade d2">
-        <div class="track-num">複数<sup>業種</sup></div>
-        <div class="track-lbl">事業支援・立て直しの実績<br>売上と組織の再建に直接関与</div>
-      </div>
-      <div class="track-card fade d3">
-        <div class="track-num">CMO</div>
-        <div class="track-lbl">最高マーケティング責任者として参画<br>製薬会社のマーケ戦略立案・実行</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ FAQ ══════════ -->
+<!-- ══ FAQ ══ -->
 <section id="faq" class="sec">
   <div class="wrap">
-    <div class="label fade">よくある質問 / FAQ</div>
-    <h2 class="h2 fade d1">よくある質問</h2>
-    <div class="faq-list fade d2">
+    <div class="faq-intro fade">
+      <h2 class="h2">よくある質問</h2>
+    </div>
+    <div class="faq-accordion fade d1">
 
       <div class="faq-item">
-        <button class="faq-q-btn" onclick="toggleFaq(this)">
-          <span class="faq-q-lbl">Q</span>
-          <span class="faq-q-txt">どのような方が相談に来ますか？</span>
-          <span class="faq-toggle">+</span>
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          <span class="faq-q-text">どのような方が相談に来ますか？</span>
+          <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">中小企業の経営者・スタートアップ・個人事業主・小規模事業者の方が中心です。「発信や集客を頑張っているのに売上につながらない」「何が問題なのかわからない」といったお悩みをお持ちの方がよくご相談にいらっしゃいます。</div>
+        <div class="faq-answer">中小企業の経営者・スタートアップ・個人事業主・小規模事業者の方が中心です。「発信や集客を頑張っているのに売上につながらない」「何が問題なのかわからない」といったお悩みをお持ちの方がよくご相談にいらっしゃいます。</div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q-btn" onclick="toggleFaq(this)">
-          <span class="faq-q-lbl">Q</span>
-          <span class="faq-q-txt">相談から開始までの流れを教えてください。</span>
-          <span class="faq-toggle">+</span>
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          <span class="faq-q-text">相談から開始までの流れを教えてください。</span>
+          <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">まず無料診断（オンライン・30〜60分）にて現状をお聞きします。そのうえで課題と方向性をご提案し、ご納得いただけた場合にサポートを開始します。強引な勧誘は一切行っておりません。</div>
+        <div class="faq-answer">まず無料診断（オンライン・30〜60分）にて現状をお聞きします。そのうえで課題と方向性をご提案し、ご納得いただけた場合にサポートを開始します。強引な勧誘は一切行っておりません。</div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q-btn" onclick="toggleFaq(this)">
-          <span class="faq-q-lbl">Q</span>
-          <span class="faq-q-txt">料金はどのくらいかかりますか？</span>
-          <span class="faq-toggle">+</span>
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          <span class="faq-q-text">料金はどのくらいかかりますか？</span>
+          <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">お客様の状況や課題の深さによって異なります。まずは無料診断でお話をお聞きし、最適なプランをご提案いたします。</div>
+        <div class="faq-answer">お客様の状況や課題の深さによって異なります。まずは無料診断でお話をお聞きし、最適なプランをご提案いたします。</div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q-btn" onclick="toggleFaq(this)">
-          <span class="faq-q-lbl">Q</span>
-          <span class="faq-q-txt">SNS運用や広告の代行もお願いできますか？</span>
-          <span class="faq-toggle">+</span>
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          <span class="faq-q-text">SNS運用や広告の代行もお願いできますか？</span>
+          <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">個別施策の代行よりも、「なぜ売れていないか」の根本原因を特定し、売れる仕組みを設計することを専門としています。土台となる戦略が整っていない状態では、どんな施策も効果が出づらいためです。</div>
+        <div class="faq-answer">個別施策の代行よりも、「なぜ売れていないか」の根本原因を特定し、売れる仕組みを設計することを専門としています。土台となる戦略が整っていない状態では、どんな施策も効果が出づらいためです。</div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q-btn" onclick="toggleFaq(this)">
-          <span class="faq-q-lbl">Q</span>
-          <span class="faq-q-txt">どれくらいで成果が出ますか？</span>
-          <span class="faq-toggle">+</span>
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          <span class="faq-q-text">どれくらいで成果が出ますか？</span>
+          <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">事業の状況によって異なりますが、商品設計・導線の整理といった土台が整うことで、発信やセールスの迷いがなくなります。早い方では1〜2ヶ月以内に手応えを感じていただいています。</div>
+        <div class="faq-answer">事業の状況によって異なりますが、商品設計・導線の整理といった土台が整うことで、発信やセールスの迷いがなくなります。早い方では1〜2ヶ月以内に手応えを感じていただいています。</div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q-btn" onclick="toggleFaq(this)">
-          <span class="faq-q-lbl">Q</span>
-          <span class="faq-q-txt">オンラインでも対応していますか？</span>
-          <span class="faq-toggle">+</span>
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          <span class="faq-q-text">オンラインでも対応していますか？</span>
+          <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">はい、全国どこでもオンラインで対応しています。直接お会いしてのご相談をご希望の方も、ご対応可能ですのでお気軽にご相談ください。</div>
+        <div class="faq-answer">はい、全国どこでもオンラインで対応しています。直接お会いしてのご相談をご希望の方も、ご対応可能ですのでお気軽にご相談ください。</div>
       </div>
 
       <div class="faq-item">
-        <button class="faq-q-btn" onclick="toggleFaq(this)">
-          <span class="faq-q-lbl">Q</span>
-          <span class="faq-q-txt">まだ相談できる段階かわからないのですが、問い合わせしても大丈夫ですか？</span>
-          <span class="faq-toggle">+</span>
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          <span class="faq-q-mark">Q</span>
+          <span class="faq-q-text">まだ相談できる段階かわからないのですが、問い合わせしても大丈夫ですか？</span>
+          <span class="faq-icon">+</span>
         </button>
-        <div class="faq-a">もちろんです。「今すぐではないけれど気になっている」という段階でもお気軽にご連絡ください。まず現状をお聞きして、必要かどうかを一緒に判断しましょう。</div>
+        <div class="faq-answer">もちろんです。「今すぐではないけれど気になっている」という段階でもお気軽にご連絡ください。まず現状をお聞きして、必要かどうかを一緒に判断しましょう。</div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ══════════ CTA FINAL ══════════ -->
+<!-- ══ CTA FINAL ══ -->
 <section id="cta-final">
-  <div class="cta-final-inner fade">
-    <div class="label" style="color:var(--gold);justify-content:center;"><span style="width:28px;height:1.5px;background:var(--gold);display:block;"></span>お申し込み / CONTACT</div>
+  <div class="cta-inner fade">
+    <span class="cta-overline">お申し込み</span>
     <h2 class="cta-h">まずは無料診断から。</h2>
-    <p class="cta-sub">
-      「今すぐではないけれど気になっている」という段階でも大丈夫です。<br>
-      現状をお聞きして、必要かどうかを一緒に判断しましょう。
-    </p>
-    <div class="cta-btns">
-      <a href="https://lin.ee/6CUpdTX" target="_blank" rel="noopener" class="btn-line btn-line-lg">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-        LINEで無料診断を申し込む
-      </a>
-    </div>
+    <p class="cta-sub">「今すぐではないけれど気になっている」という段階でも大丈夫です。現状をお聞きして、必要かどうかを一緒に判断しましょう。</p>
+    <a href="https://lin.ee/6CUpdTX" target="_blank" rel="noopener" class="btn-line btn-line-lg">
+      <svg width="22" height="22" fill="currentColor"><use href="#ico-line"/></svg>
+      LINEで無料診断を申し込む
+    </a>
     <p class="cta-note">診断無料 ・ オンライン対応可 ・ 強引な営業は一切ありません</p>
   </div>
 </section>
 
-<!-- ══════════ FOOTER ══════════ -->
+<!-- ══ FOOTER ══ -->
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
@@ -978,7 +900,6 @@
 </footer>
 
 <script>
-  /* FAQ accordion */
   function toggleFaq(btn) {
     const item = btn.closest('.faq-item');
     const isOpen = item.classList.contains('open');
@@ -986,16 +907,10 @@
     if (!isOpen) item.classList.add('open');
   }
 
-  /* Scroll fade-in */
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.fade').forEach(el => observer.observe(el));
-
-  /* Header label fix */
-  document.querySelectorAll('#track .label, #cta-final .label').forEach(el => {
-    if (!el.querySelector('span')) return;
-  });
 </script>
 </body>
 </html>
